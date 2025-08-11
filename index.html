@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vivractive – Aide à domicile en Guadeloupe | A vos côtés pour vous simplifier la vie</title>
+<meta name="description" content="Aide à domicile bienveillante en Guadeloupe : ménage, repas, accompagnement véhiculé ou au bras, garde, jardinage. Devis gratuit. Réponse sous 24h.">
+<meta name="theme-color" content="#FF7A00">
+<style>
+/* ========== Design System - Charte Vivractive ========== */
+:root{
+  --color-primary:#FF7A00;         /* orange vif Vivractive */
+  --color-secondary:#E84ABF;       /* magenta/violet clair */
+  --color-accent:#7B0E6A;          /* violet foncé */
+  --color-bg:#F7F5F8;              /* gris très clair rosé */
+  --color-surface:#FFFFFF;         /* blanc pur */
+  --color-text:#222222;            /* anthracite */
+  --color-text-light:#555555;      /* gris moyen */
+  --radius:14px;
+  --radius-pill:999px;
+  --shadow:0 6px 18px rgba(123,14,106,.12);
+  --shadow-sm:0 2px 10px rgba(123,14,106,.08);
+  --focus:0 0 0 3px rgba(255,122,0,.25);
+  --font-heading: "Montserrat", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Open Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --maxw:1120px;
+  --sp-1:8px; --sp-2:12px; --sp-3:16px; --sp-4:20px; --sp-5:28px; --sp-6:36px;
+}
+
+/* Reset minimal et accessibilité */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--color-bg); color:var(--color-text);
+  font-family:var(--font-body); line-height:1.6; font-size:16px;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%; height:auto}
+a{color:inherit}
+a:focus, button:focus, input:focus, textarea:focus, select:focus{outline:none; box-shadow:var(--focus)}
+.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+
+/* Grille & conteneurs */
+.container{max-width:var(--maxw); margin:auto; padding:0 var(--sp-3)}
+.section{padding: clamp(40px, 6vw, 90px) 0}
+
+/* Header sticky conversion-first */
+.topbar{
+  position:sticky; top:0; z-index:50; background:var(--color-surface);
+  border-bottom:1px solid rgba(123,14,106,.1); box-shadow:var(--shadow-sm);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:var(--sp-3); padding:var(--sp-2) 0;
+}
+.brand{display:flex; align-items:center; gap:12px}
+.logo-img{
+  width:48px; height:48px; border-radius:12px; object-fit:contain;
+}
+.brand-name{font-family:var(--font-heading); font-weight:700; letter-spacing:.2px; color:var(--color-primary)}
+.tagline{font-size:13px; color:var(--color-accent); opacity:.8}
+.nav-cta{
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap
+}
+.btn{
+  appearance:none; border:none; cursor:pointer; text-decoration:none;
+  font-weight:700; font-family:var(--font-heading);
+  border-radius:var(--radius-pill); padding:12px 18px; transition:.25s ease;
+  display:inline-flex; align-items:center; gap:10px
+}
+.btn-primary{background:var(--color-primary); color:#fff}
+.btn-primary:hover{filter:brightness(1.05); transform:translateY(-1px)}
+.btn-ghost{background:rgba(255,122,0,.1); color:var(--color-accent)}
+.btn-ghost:hover{background:rgba(255,122,0,.15)}
+
+/* Hero avec image de fond */
+.hero{
+  background:linear-gradient(160deg, rgba(255,122,0,.06), rgba(232,74,191,.06)),
+             url('https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/8f240cea-722c-4b7c-a769-cc307c8eea37/swiftask_tmpprv2tfvx.webp') center/cover no-repeat;
+  position:relative;
+}
+.hero::before{
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background:rgba(247,245,248,.85); z-index:1;
+}
+.hero-wrap{display:grid; gap:22px; align-items:center; position:relative; z-index:2}
+.hero h1{
+  font-family:var(--font-heading); font-size: clamp(26px, 5.5vw, 44px);
+  line-height:1.2; margin:0; color:var(--color-accent);
+}
+.hero p{font-size: clamp(16px, 2.5vw, 18px); max-width:60ch; margin:0; color:var(--color-text-light)}
+.kpis{display:flex; gap:16px; flex-wrap:wrap; margin-top:6px}
+.kpi{
+  background:var(--color-surface); padding:10px 14px; border-radius:var(--radius-pill);
+  box-shadow:var(--shadow-sm); font-weight:700; color:var(--color-accent); font-size:14px;
+  border:1px solid rgba(255,122,0,.2);
+}
+.hero-cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
+.badge-trust{
+  display:flex; align-items:center; gap:8px; color:var(--color-accent); font-size:14px
+}
+
+/* Section services avec images */
+.services-grid{
+  display:grid; gap:var(--sp-5);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.service-card{
+  background:var(--color-surface); border-radius:var(--radius); box-shadow:var(--shadow);
+  overflow:hidden; transition:transform .2s ease, box-shadow .2s ease;
+  border:1px solid rgba(232,74,191,.1);
+}
+.service-card:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(123,14,106,.15)}
+.service-image{
+  width:100%; height:200px; object-fit:cover;
+}
+.service-content{padding:18px}
+.service-content h3{
+  font-family:var(--font-heading); margin:0 0 8px; color:var(--color-accent);
+  display:flex; align-items:center; gap:10px;
+}
+.service-content p{margin:0; font-size:15.5px; color:var(--color-text-light)}
+.icon{
+  width:32px; height:32px; border-radius:8px; display:grid; place-items:center;
+  background:linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color:#fff; flex-shrink:0;
+}
+
+/* Services spéciaux (jardinage et accompagnement mer) */
+.special-services{
+  background:linear-gradient(180deg, rgba(255,122,0,.03), rgba(232,74,191,.03));
+  margin-top:var(--sp-6);
+}
+.special-grid{
+  display:grid; gap:var(--sp-6);
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+.special-card{
+  background:var(--color-surface); border-radius:var(--radius); box-shadow:var(--shadow);
+  overflow:hidden; position:relative;
+}
+.special-image{
+  width:100%; height:250px; object-fit:cover;
+}
+.special-content{
+  padding:var(--sp-4);
+}
+.special-badge{
+  position:absolute; top:12px; right:12px;
+  background:var(--color-primary); color:#fff; padding:6px 12px;
+  border-radius:var(--radius-pill); font-size:12px; font-weight:700;
+}
+
+/* Section équipe avec photos */
+.team-section{
+  background:linear-gradient(180deg, rgba(255,122,0,.03), rgba(232,74,191,.03));
+}
+.team-intro{text-align:center; margin-bottom:var(--sp-6)}
+.team-photo{
+  width:100%; height:300px; object-fit:cover; border-radius:var(--radius);
+  box-shadow:var(--shadow); margin-bottom:var(--sp-3);
+}
+.team-grid{
+  display:grid; gap:var(--sp-5); 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.team-card{text-align:center}
+.team-card h3{color:var(--color-accent); margin:var(--sp-2) 0}
+
+/* Bloc confiance */
+.trust{
+  display:grid; gap:16px; grid-template-columns:1fr; align-items:center
+}
+.trust h2{color:var(--color-accent)}
+.trust p{color:var(--color-text-light)}
+.trust-logos{
+  display:flex; gap:14px; flex-wrap:wrap; align-items:center
+}
+.trust-logos span{
+  background:rgba(255,122,0,.1); color:var(--color-accent); 
+  padding:10px 12px; border-radius:10px; font-weight:700; font-size:14px;
+  border:1px solid rgba(255,122,0,.2);
+}
+
+/* Témoignages */
+.testimonials{display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));}
+.quote{
+  background:var(--color-surface); border-left:6px solid var(--color-secondary);
+  padding:16px; border-radius:12px; box-shadow:var(--shadow-sm); position:relative
+}
+.quote::after{
+  content:"""; position:absolute; font-size:54px; color:rgba(232,74,191,.2);
+  top:-10px; right:14px; font-family:serif
+}
+.quote blockquote{color:var(--color-text-light); margin:0}
+.quote figcaption{color:var(--color-accent)}
+
+/* Formulaire de contact (conversion) */
+.form-wrap{
+  background:var(--color-surface); border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:20px; border:1px solid rgba(232,74,191,.1);
+}
+.form-wrap h2{color:var(--color-accent)}
+form{display:grid; gap:12px}
+label{font-weight:700; color:var(--color-accent)}
+input, textarea, select{
+  width:100%; padding:12px; border:1px solid rgba(232,74,191,.3); border-radius:10px;
+  font:inherit; background:#fff;
+}
+input:focus, textarea:focus, select:focus{border-color:var(--color-primary)}
+.help{font-size:13px; color:var(--color-text-light)}
+.help a{color:var(--color-primary); text-decoration:none}
+.help a:hover{text-decoration:underline}
+.inline{display:flex; gap:12px; flex-wrap:wrap}
+.inline > *{flex:1 1 200px}
+.consent{display:flex; gap:10px; align-items:flex-start; font-size:14px; color:var(--color-text-light)}
+.sticky-cta{
+  position:fixed; bottom:14px; right:14px; z-index:60;
+  display:none;
+}
+@media (max-width: 820px){
+  .sticky-cta{display:block}
+}
+
+/* Footer */
+.footer{
+  background:var(--color-accent); color:#f0e8f5;
+}
+.footer a{color:#ffd9f2}
+.footer a:hover{color:#fff}
+.small{font-size:13px}
+
+/* Titres de section */
+h2{font-family:var(--font-heading); font-size:clamp(22px,3.8vw,30px); margin:0 0 10px; color:var(--color-accent)}
+
+/* Dark mode automatique respectant la préférence utilisateur */
+@media (prefers-color-scheme: dark){
+  :root{
+    --color-bg:#1a1a1a; 
+    --color-surface:#2d2d2d; 
+    --color-text:#e8e8e8;
+    --color-text-light:#c0c0c0;
+  }
+  .hero::before{background:rgba(26,26,26,.85)}
+  .topbar{border-color:rgba(232,74,191,.2)}
+  .btn-ghost{background:rgba(255,122,0,.2); color:#fff}
+  .btn-ghost:hover{background:rgba(255,122,0,.3)}
+  .trust-logos span{background:rgba(255,122,0,.2); color:#fff}
+  .kpi{background:var(--color-surface); color:#fff; border-color:rgba(255,122,0,.3)}
+  .service-card, .special-card{background:var(--color-surface); border-color:rgba(232,74,191,.2)}
+  .service-content h3{color:#fff}
+  .form-wrap{background:var(--color-surface); border-color:rgba(232,74,191,.2)}
+  .form-wrap h2, label{color:#fff}
+  input, textarea, select{background:var(--color-surface); color:#fff; border-color:rgba(232,74,191,.4)}
+  h2{color:#fff}
+  .trust h2{color:#fff}
+  .team-card h3{color:#fff}
+  .special-content h3{color:#fff}
+}
+
+/* Animations discrètes */
+.fade-in{opacity:0; transform:translateY(10px); transition:opacity .5s ease, transform .5s ease}
+.fade-in.visible{opacity:1; transform:none}
+
+/* Impression simplifiée */
+@media print{
+  .topbar, .sticky-cta{display:none}
+  .service-card, .special-card, .form-wrap, .quote{box-shadow:none}
+  .hero::before{background:rgba(247,245,248,.95)}
+}
+</style>
+</head>
+<body>
+<a class="visually-hidden" href="#contact">Aller au formulaire de contact</a>
+
+<header class="topbar" role="banner">
+  <div class="container nav" aria-label="Barre de navigation">
+    <div class="brand">
+      <img src="https://static.swiftask.ai/swiftaskagent/37655418-19c4-4fb5-80b8-ab384a840ae9/Mon_Logo_Vivractive.jpg" 
+           alt="Logo Vivractive Services à la personne" class="logo-img">
+      <div>
+        <div class="brand-name">Vivractive Services</div>
+        <div class="tagline">A vos côtés pour vous simplifier la vie</div>
+      </div>
+    </div>
+    <nav aria-label="Navigation principale">
+      <div class="nav-cta">
+        <a class="btn btn-ghost" href="#services" aria-label="Voir nos services">
+          <!-- icône services -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Services
+        </a>
+        <a class="btn btn-primary" href="#contact" aria-label="Ouvrir le formulaire de contact">
+          <!-- icône téléphone -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07A19.5 19.5 0 0 1 3.14 9.81 19.8 19.8 0 0 1 .07 1.18 2 2 0 0 1 2.05-.99h3a2 2 0 0 1 2 1.72c.12.89.31 1.76.57 2.6a2 2 0 0 1-.45 2.11L6.09 7.91a16 16 0 0 0 10 10l1.47-1.08a2 2 0 0 1 2.11-.45c.84.26 1.71.45 2.6.57A2 2 0 0 1 22 16.92Z" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          0590 12 34 56
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="content" role="main">
+  <!-- HERO -->
+  <section class="hero section" aria-labelledby="hero-title">
+    <div class="container hero-wrap">
+      <h1 id="hero-title">Aide à domicile bienveillante en Guadeloupe</h1>
+      <p>Nous accompagnons avec douceur et professionnalisme les personnes âgées, en situation de handicap et les familles : entretien du domicile, repas, jardinage, accompagnement véhiculé ou au bras… Ici, la relation humaine passe avant tout.</p>
+      <div class="kpis" aria-label="Indicateurs de confiance">
+        <div class="kpi">Réponse sous 24h</div>
+        <div class="kpi">Évaluations 4,9/5</div>
+        <div class="kpi">-50% crédit d'impôt</div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">Demander un devis gratuit</a>
+        <a class="btn btn-ghost" href="#services">Découvrir nos services</a>
+        <div class="badge-trust" role="note" aria-label="Éléments de confiance">
+          <!-- picto bouclier -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 4v5c0 5-3.5 9-7 9s-7-4-7-9V7l7-4z" stroke="currentColor" stroke-width="2"/></svg>
+          Agrément SAP & personnel formé
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES PRINCIPAUX -->
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="container">
+      <h2 id="services-title">Nos services essentiels</h2>
+      <p class="help">Des prestations modulables selon vos besoins et votre rythme de vie.</p>
+      <div class="services-grid">
+        <article class="service-card fade-in">
+          <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/298f4a4e-5acf-42d9-a7dd-ecd6043aefcd/swiftask_tmplzxn2tnv.webp" 
+               alt="Aide à domicile nettoyant un salon guadeloupéen" class="service-image">
+          <div class="service-content">
+            <h3>
+              <div class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 3h18v4H3zM6 7v14h12V7" stroke="#fff" stroke-width="2"/></svg>
+              </div>
+              Entretien du domicile
+            </h3>
+            <p>Dépoussiérage, sols, linge, désencombrement doux. Produits écoresponsables sur demande. Respect de vos habitudes et de votre intimité.</p>
+          </div>
+        </article>
+
+        <article class="service-card fade-in">
+          <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/8fcbaeec-0af5-48ee-9af6-3c4067665636/swiftask_tmpxwlbncfh.webp" 
+               alt="Préparation de repas créole traditionnel" class="service-image">
+          <div class="service-content">
+            <h3>
+              <div class="icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="#fff" stroke-width="2"/></svg>
+              </div>
+              Aide aux repas
+            </h3>
+            <p>Courses, préparation de repas équilibrés créoles, aide à la prise, suivi des habitudes alimentaires. Saveurs et traditions guadeloupéennes.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- SERVICES SPÉCIAUX -->
+      <div class="special-services">
+        <div class="container">
+          <h3 style="text-align:center; margin-bottom:var(--sp-5); color:var(--color-accent)">Nos prestations signature en Guadeloupe</h3>
+          <div class="special-grid">
+            <article class="special-card fade-in">
+              <div class="special-badge">★ Spécialité</div>
+              <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/eb3bf4a5-e924-4fb8-adfc-c502a0cceaf2/swiftask_tmpl8y4ptk7.webp" 
+                   alt="Accompagnement sur une plage de Guadeloupe" class="special-image">
+              <div class="special-content">
+                <h3>Accompagnement à la mer</h3>
+                <p>Promenades sur nos magnifiques plages guadeloupéennes, moments de détente face à la mer des Caraïbes, accompagnement sécurisé pour retrouver le plaisir des sorties en bord de mer. Un service unique qui allie bien-être et beauté de notre île.</p>
+              </div>
+            </article>
+
+            <article class="special-card fade-in">
+              <div class="special-badge">★ Expertise</div>
+              <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/e3445e95-2416-425e-965d-efb7841cb759/swiftask_tmpfih4g17s.webp" 
+                   alt="Jardinage tropical en Guadeloupe" class="special-image">
+              <div class="special-content">
+                <h3>Jardinage créole & tropical</h3>
+                <p>Entretien expert de votre jardin tropical : bananiers, hibiscus, bougainvilliers, plantes aromatiques créoles. Nos jardiniers connaissent parfaitement la flore locale et les techniques adaptées au climat antillais.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUTRES SERVICES -->
+      <div style="margin-top:var(--sp-6)">
+        <h3 style="text-align:center; margin-bottom:var(--sp-4); color:var(--color-accent)">Autres accompagnements</h3>
+        <div class="special-grid">
+          <article class="special-card fade-in">
+            <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/a9b00d46-20d0-4fad-a239-cce806d24607/swiftask_tmppgp6iakr.webp" 
+                 alt="Accompagnement contemplatif face à la mer" class="special-image">
+            <div class="special-content">
+              <h3>Accompagnement véhiculé ou au bras</h3>
+              <p>Rendez-vous médicaux, courses, démarches administratives, sorties culturelles. Ponctualité et sécurité d'abord, avec la douceur créole en plus.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÉQUIPE -->
+  <section class="section team-section" aria-labelledby="team-title">
+    <div class="container">
+      <div class="team-intro">
+        <h2 id="team-title">Notre équipe à votre service</h2>
+        <p class="help">Des professionnels formés qui reflètent la diversité et la chaleur de la Guadeloupe</p>
+      </div>
+      <div class="team-grid">
+        <article class="team-card fade-in">
+          <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/2a31cb1a-ecac-43e6-84aa-d71255b6ce70/swiftask_tmpun6qnkma.webp" 
+               alt="Équipe Vivractive devant une maison créole en Guadeloupe" class="team-photo">
+          <h3>Une équipe unie et diverse</h3>
+          <p>Nos intervenant·e·s reflètent la richesse culturelle de la Guadeloupe : origines afro-caribéennes, métisses, indiennes… Unis par la même passion du service.</p>
+        </article>
+        <article class="team-card fade-in">
+          <img src="https://swiftask-prod-files.s3.eu-west-3.amazonaws.com/files/e8665148-0f1c-430b-a2fa-a5aebb8e7943/swiftask_tmp7wan5i8b.webp" 
+               alt="Aide à domicile préparant un repas créole avec une personne âgée" class="team-photo">
+          <h3>Savoir-faire créole</h3>
+          <p>Préparation de repas traditionnels, connaissance des habitudes locales, respect des traditions familiales guadeloupéennes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOC CONFIANCE -->
+  <section class="section" aria-labelledby="trust-title">
+    <div class="container trust">
+      <div>
+        <h2 id="trust-title">La confiance au cœur du service</h2>
+        <p>Nous sommes agréés Services à la Personne. Nos intervenant·e·s sont sélectionné·e·s, formé·e·s et accompagné·e·s en continu. Assurance incluse. Respect, discrétion et sourire créole.</p>
+      </div>
+      <div class="trust-logos" aria-label="Logos et labels">
+        <span>AGRÉMENT SAP</span>
+        <span>URSSAF CESU</span>
+        <span>RGPD</span>
+        <span>Assuré</span>
+        <span>-50% crédit d'impôt</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEMOIGNAGES -->
+  <section class="section" aria-labelledby="testi-title">
+    <div class="container">
+      <h2 id="testi-title">Ils nous font confiance</h2>
+      <div class="testimonials">
+        <figure class="quote fade-in">
+          <blockquote>Un accompagnement d'une grande douceur pour ma maman. Équipe ponctuelle et à l'écoute. Merci !</blockquote>
+          <figcaption class="small">— Famille D., Sainte‑Anne</figcaption>
+        </figure>
+        <figure class="quote fade-in">
+          <blockquote>Les sorties à la mer ont redonné le sourire à papa. Un service vraiment unique en Guadeloupe.</blockquote>
+          <figcaption class="small">— M. L., Le Moule</figcaption>
+        </figure>
+        <figure class="quote fade-in">
+          <blockquote>Très professionnel et chaleureux. Le jardin respire à nouveau et nous aussi.</blockquote>
+          <figcaption class="small">— J. B., Gosier</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <div class="form-wrap">
+        <h2 id="contact-title">Demander un devis gratuit</h2>
+        <p class="help">Réponse sous 24h ouvrées. Vous pouvez aussi nous appeler au <a href="tel:0590123456" aria-label="Appeler le 0590 12 34 56">0590 12 34 56</a>.</p>
+        <form id="lead-form" novalidate>
+          <div class="inline">
+            <div>
+              <label for="fname">Prénom</label>
+              <input id="fname" name="fname" autocomplete="given-name" required aria-required="true">
+            </div>
+            <div>
+              <label for="lname">Nom</label>
+              <input id="lname" name="lname" autocomplete="family-name" required aria-required="true">
+            </div>
+          </div>
+          <div class="inline">
+            <div>
+              <label for="phone">Téléphone</label>
+              <input id="phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="0590..." required aria-required="true">
+            </div>
+            <div>
+              <label for="email">E-mail</label>
+              <input id="email" name="email" inputmode="email" autocomplete="email" placeholder="vous@example.com">
+            </div>
+          </div>
+          <div class="inline">
+            <div>
+              <label for="service">Service souhaité</label>
+              <select id="service" name="service" required aria-required="true">
+                <option value="">Choisir…</option>
+                <option>Entretien du domicile</option>
+                <option>Aide aux repas</option>
+                <option>Accompagnement véhiculé ou au bras</option>
+                <option>Accompagnement à la mer</option>
+                <option>Jardinage créole & tropical</option>
+              </select>
+            </div>
+            <div>
+              <label for="cp">Commune</label>
+              <input id="cp" name="cp" placeholder="Ex. Sainte‑Anne" autocomplete="address-level2">
+            </div>
+          </div>
+          <div>
+            <label for="msg">Votre besoin (quelques mots)</label>
+            <textarea id="msg" name="msg" rows="4" maxlength="600" placeholder="Dites‑nous l'essentiel pour bien vous répondre."></textarea>
+          </div>
+          <div class="consent">
+            <input type="checkbox" id="consent" required aria-required="true">
+            <label for="consent">J'accepte que mes données soient utilisées pour être recontacté·e. (RGPD)</label>
+          </div>
+          <button class="btn btn-primary" type="submit" aria-label="Envoyer la demande de devis">Envoyer ma demande</button>
+          <div id="form-status" role="status" aria-live="polite" class="help"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Sticky CTA mobile -->
+<a class="btn btn-primary sticky-cta" href="#contact" aria-label="Ouvrir le formulaire de contact rapide">
+  Demander un devis
+</a>
+
+<footer class="footer section" role="contentinfo">
+  <div class="container">
+    <div class="inline">
+      <div>
+        <strong>Vivractive Services à la personne</strong><br>
+        ZI de Dupuy, 97180 Sainte‑Anne, Guadeloupe<br>
+        Tél. <a href="tel:0590123456">0590 12 34 56</a> – <a href="mailto:contact@vivractive.gp">contact@vivractive.gp</a>
+      </div>
+      <div>
+        <strong>Horaires</strong><br>
+        Lun–Ven 8h–18h<br>Sam 9h–12h
+      </div>
+      <div>
+        <strong>Langues</strong><br>
+        Français / Kréyòl Gwadloup
+      </div>
+    </div>
+    <p class="small" style="margin-top:12px">© <span id="y"></span> Vivractive. Agrément Services à la Personne. Mentions légales – Politique de confidentialité.</p>
+  </div>
+</footer>
+
+<script>
+/* Micro-interactions: apparition douce des cartes */
+const onScrollReveal=()=>document.querySelectorAll('.fade-in').forEach(el=>{
+  const r=el.getBoundingClientRect();
+  if(r.top<window.innerHeight-80) el.classList.add('visible');
+});
+window.addEventListener('scroll', onScrollReveal, {passive:true});
+window.addEventListener('load', onScrollReveal);
+
+/* Formulaire: validation légère + simulateur d'envoi offline-friendly */
+const form=document.getElementById('lead-form');
+const statusEl=document.getElementById('form-status');
+form.addEventListener('submit', (e)=>{
+  e.preventDefault();
+  if(!form.reportValidity()){
+    statusEl.textContent="Merci de vérifier les champs obligatoires.";
+    return;
+  }
+  const data=Object.fromEntries(new FormData(form).entries());
+  try{
+    localStorage.setItem('lead_'+Date.now(), JSON.stringify(data));
+  }catch(_){}
+  statusEl.textContent="Merci ! Votre demande est enregistrée. Nous vous rappelons sous 24h.";
+  form.reset();
+});
+
+/* Année dynamique */
+document.getElementById('y').textContent=new Date().getFullYear();
+
+/* Amélioration UX: préserver le focus après scroll ancré (accessibilité) */
+(function(){
+  const hash=location.hash;
+  if(hash){
+    const el=document.querySelector(hash);
+    if(el) el.setAttribute('tabindex','-1'), el.focus({preventScroll:true});
+  }
+})();
+</script>
+</body>
+</html>
